@@ -1,0 +1,13 @@
+# Per-host secrets/config - never commit real values
+.env
+
+# Game server binaries - re-downloaded automatically by the container
+data/
+
+# World saves, backups, mod configs - move these via scripts/backup.sh
+# and scripts/restore.sh instead of committing them (they're binary,
+# change every session, and would bloat the repo forever)
+config/
+
+# Migration tarballs produced by scripts/backup.sh
+*.tar.gz
