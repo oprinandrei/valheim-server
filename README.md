@@ -72,6 +72,60 @@ docker compose pull && docker compose up -d   # update the server image itself
 
 That's it - same repo, same world, new machine.
 
+## Admin dev commands (Server Devcommands mod)
+
+Vanilla dedicated servers block Valheim's dev/cheat console commands
+entirely, even for players in `adminlist.txt` - `removekey`, `god`, `spawn`,
+etc. all fail with an admin/permission error no matter what. The
+[Server Devcommands](https://thunderstore.io/c/valheim/p/JereKuusela/Server_devcommands/)
+mod (by JereKuusela) re-enables them for adminlist'd players. It's
+**server-side only** - installed here via BepInEx, nobody connecting needs
+to install anything on their end.
+
+Not installed by default (`BEPINEX=false` in `.env`). To enable it:
+
+1. Set `BEPINEX=true` in `.env`.
+2. Download the mod's plugin DLL from Thunderstore and place it in
+   `config/bepinex/plugins/`.
+3. `docker compose down && docker compose up -d`.
+
+To use it once installed:
+
+1. Make sure your SteamID64 is in `ADMINLIST_IDS` (see `.env`).
+2. In Valheim's Steam launch options, add `-console` (one-time, lets F5
+   open the console at all).
+3. Connect to the server, press **F5**, type `devcommands` and hit enter.
+   This toggles cheat mode **for your session only** - it resets every time
+   you reconnect, and only adminlist'd players can turn it on.
+4. Run whichever commands you need (see table below).
+
+| Command | Effect |
+| --- | --- |
+| `god` | Toggle invincibility |
+| `ghost` | Enemies ignore you |
+| `fly` | Toggle flight (Space up / Ctrl down) |
+| `heal` | Full health/stamina/eitr |
+| `spawn [entity] [amount] [level]` | Spawn an item/creature |
+| `itemset [name]` | Spawn a premade gear set (Meadows, BlackForest, Mountains, ...) |
+| `tame` | Tame all nearby tameable creatures |
+| `killall` / `killenemies` / `killtame` | Remove nearby enemies/tames |
+| `removedrops` | Clear nearby item drops on the ground |
+| `raiseskill [skill] [amount]` | Set/boost a skill level |
+| `exploremap` / `resetmap` | Reveal / hide the whole map |
+| `goto [x] [z]` | Teleport to coordinates |
+| `tod [0-1]` | Set time of day (0.5 = noon) |
+| `skiptime [seconds]` | Fast-forward time |
+| `listkeys` / `setkey [name]` / `removekey [name]` / `resetkeys` | List/add/remove/clear global world keys (e.g. `removekey nobuildcost`) |
+| `nocost` | Toggle no-cost building for your session |
+| `yesiuseddevcommandsbutiwantmyachievementsanyway` | Opts back into Steam achievements even though devcommands/mods were used - added in game version 1.0.12, so the server needs to be updated to at least that version first (see below) |
+
+`yesiuseddevcommandsbutiwantmyachievementsanyway` is a vanilla Valheim
+devcommand (not part of the mod above), from the 1.0.12 hotfix. Iron Gate's
+own note on it: *"We will leave it to your own judgement whether or not to
+activate this function - Oden will surely know if you use it dishonourably."*
+
+Full reference: <https://valheim.weirdgloop.org/w/Console_Commands>
+
 ## Notes
 
 - `SERVER_PUBLIC=false` keeps the server off the public browser list
