@@ -117,12 +117,20 @@ To use it once installed:
 | `skiptime [seconds]` | Fast-forward time |
 | `listkeys` / `setkey [name]` / `removekey [name]` / `resetkeys` | List/add/remove/clear global world keys (e.g. `removekey nobuildcost`) |
 | `nocost` | Toggle no-cost building for your session |
+| `clearcheats` | Clears your character's cheat-tracking status (mod command, added in Server Devcommands v1.111) |
 | `yesiuseddevcommandsbutiwantmyachievementsanyway` | Opts back into Steam achievements even though devcommands/mods were used - added in game version 1.0.12, so the server needs to be updated to at least that version first (see below) |
 
 `yesiuseddevcommandsbutiwantmyachievementsanyway` is a vanilla Valheim
 devcommand (not part of the mod above), from the 1.0.12 hotfix. Iron Gate's
 own note on it: *"We will leave it to your own judgement whether or not to
 activate this function - Oden will surely know if you use it dishonourably."*
+
+Note: mod versions are tied to the game version. The Server Devcommands mod
+that worked on game version 1.0.7 threw a `MissingFieldException` and
+failed to load at all after the server updated to 1.0.12 - the mod needed
+its own matching update (v1.112, "Fixed for the new update") before it
+would load again. If dev commands stop working after a game update, check
+for a newer mod release first.
 
 Full reference: <https://valheim.weirdgloop.org/w/Console_Commands>
 
