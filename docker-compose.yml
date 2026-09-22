@@ -7,7 +7,7 @@ services:
     cap_add:
       - sys_nice
     ports:
-      - "2456-2457:2456-2457/udp"
+      - "10.13.13.1:2456-2457:2456-2457/udp"
     volumes:
       - ./config:/config
       - ./data:/opt/valheim
